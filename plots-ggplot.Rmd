@@ -8,3 +8,43 @@ output: html_document
 ## Plots with ggplot2
 
 We are going to make plots in R and it's going to be amazing.
+
+## Attach packages to work with data, read in Excel file, and make plots
+```{r setup, include=FALSE}
+library(tidyverse)
+library(readxl)
+library(here)
+```
+
+## Read in csv file from data folder and assign a name
+```{r read_csv}
+ca_np <- read_csv(here("data", "ca_np.csv"))
+head(ca_np)
+```
+
+## Read in xls file from data folder and assign a name
+```{r read_xls}
+ci_np <- read_excel(here("data", "ci_np.xlsx"))
+head(ci_np)
+```
+
+## Creating a bare-bones ggplot line graph
+```{r graph}
+ggplot(data = ci_np, aes(x = year, y = visitors)) + geom_line()
+```
+
+## Save that basic plot as an object to reuse for other plots
+```{r basegraph}
+gg_base <- ggplot(data = ci_np, aes(x = year, y = visitors))
+```
+
+## To customize graphs with aesthetics by adding arguments within layer where element was created
+```{r custom}
+gg_base +
+  geom_line(
+    color = "purple",
+    linetype = "dashed"
+  )
+```
+## To find which colors are recognized, google "R colors ggplot2". Can also customize fill, pch, size, alpha and more.
+
