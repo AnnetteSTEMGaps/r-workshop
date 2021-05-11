@@ -39,12 +39,18 @@ gg_base <- ggplot(data = ci_np, aes(x = year, y = visitors))
 ```
 
 ## To customize graphs with aesthetics by adding arguments within layer where element was created
-```{r custom}
+```{r custom1}
 gg_base +
   geom_line(
     color = "purple",
     linetype = "dashed"
   )
 ```
-## To find which colors are recognized, google "R colors ggplot2". Can also customize fill, pch, size, alpha and more.
+
+## To find which colors are recognized, google "R colors ggplot2". Can also customize fill, pch, size, alpha and more.If aesthetic based on variable, include aes
+```{r custom2}
+gg_base +
+  geom_col(aes(fill = visitors)
+  )
+```
 
