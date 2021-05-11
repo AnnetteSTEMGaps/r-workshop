@@ -54,3 +54,51 @@ gg_base +
   )
 ```
 
+## Can also apply themes to graphs that take care of many basic aesthetics.
+```{r customtheme}
+gg_base + 
+  geom_point(
+    aes(size = visitors,
+        color = visitors),
+    alpha = 0.5
+  ) +
+  theme_minimal()
+```
+
+## Use labs() to update axis labels, titles
+```{r labels}
+gg_base +
+  geom_col(fill = "cornflowerblue") +
+  theme_bw() +
+  labs(
+    x = "Year",
+    y = "Annual park visitors",
+    title = "Channel Islands NP Visitation",
+    subtitle = "(1963 - 2016)"
+  )
+```
+
+## To combine two compatible graph types as layers, like adding points to a line graph.
+```{r combining}
+gg_base +
+  geom_line(color = "purple") +
+  geom_point(color = "orange",
+             alpha = 0.5
+  )
+```
+
+## To graph datasets with multiple series, need to group by name or color or other. Switching to ca_np dataset with multiple park names.
+```{r multiseries}
+ggplot(data = ca_np, aes(x = year, y = visitors, group = park_name)) + geom_line(aes(color = park_name))
+gg_np <- ggplot(data = ca_np, aes(x = year, y = visitors, group = park_name)
+  )
+```
+
+## Faceting graphs or splitting into multiple panels based on subsets of the data. Example split by park.
+```{r faceting}
+gg_np + 
+  geom_line(show.legend = FALSE) +
+  theme_light() +
+  labs(x = "year", y = "annual visitors") +
+  facet_wrap(~ park_name)
+```
