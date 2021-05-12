@@ -1,0 +1,21 @@
+---
+title: "pivot_lobsters"
+author: "Annette Brickley"
+date: "5/12/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library(tidyverse)
+library(readxl)
+library(here)
+library(skimr) # install.packages('skimr')
+library(kableExtra) # install.packages('kableExtra')
+```
+
+## read in data from Excel (knowing it's an xlsx file) and removing top 4 lines of metadata
+
+```{r dataread}
+lobsters <- read_xlsx(here("data/lobsters.xlsx"),
+            skip=4)
+```
