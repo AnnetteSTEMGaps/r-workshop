@@ -54,3 +54,21 @@ siteyear_summary <- lobsters %>%
 siteyear_summary 
 ```
 
+## Include a median with our new variable
+```{r}
+siteyear_summary <- lobsters %>%
+  group_by(site, year) %>%
+  summarize(count_by_siteyear =  n(),
+            mean_size_mm = mean(size_mm, na.rm=TRUE),
+            sd_size_mm = sd(size_mm, na.rm=TRUE),
+            median_size_mm = median(size_mm, na.rm = TRUE)
+  )
+```
+
+## Make a graph with our new variable
+```{r graph}
+ggplot(data = siteyear_summary, 
+       aes(x = year, y = median_size_mm, color = site)) +
+       geom_line() 
+```
+
