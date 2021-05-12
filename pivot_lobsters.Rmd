@@ -69,6 +69,11 @@ siteyear_summary <- lobsters %>%
 ```{r graph}
 ggplot(data = siteyear_summary, 
        aes(x = year, y = median_size_mm, color = site)) +
-       geom_line() 
+       geom_line() +
+       facet_wrap(~site)
 ```
 
+## Saving and exporting the most recently run ggplot graph with added dimensions
+```{r savinglastplot}
+ggsave(here("figures", "medlobsite_graph.png"), dpi = 180, width = 5, height = 4)
+```
