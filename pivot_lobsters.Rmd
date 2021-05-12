@@ -19,3 +19,38 @@ library(kableExtra) # install.packages('kableExtra')
 lobsters <- read_xlsx(here("data/lobsters.xlsx"),
             skip=4)
 ```
+
+## explore data
+```{r explore}
+skimr::skim(lobsters)
+```
+
+## group data by one variable
+```{r group1}
+lobsters %>%
+  group_by(year) %>%
+  summarize(count_by_year = n())
+```
+
+## group data by two variables
+```{r group2}
+lobsters %>%
+  group_by(site, year) %>%
+  summarize(count_by_siteyear = n())
+```
+
+## summarize multiple variables including a mean and sd. But remove NA's
+```{r summarize and assign}
+siteyear_summary <- lobsters %>%
+  group_by(site, year) %>%
+  summarize(count_by_siteyear =  n(),
+            mean_size_mm = mean(size_mm, na.rm=TRUE),
+            sd_size_mm = sd(size_mm, na.rm=TRUE)
+  )
+```
+
+## inspect our new variable
+```{r}
+siteyear_summary 
+```
+
