@@ -78,3 +78,19 @@ ggplot(data = siteyear_summary,
 ggsave(here("figures", "medlobsite_graph.png"), dpi = 180, width = 5, height = 4)
 ```
 
+## We can mutate or add columns with calculations or repeated numbers or character strings. Good to rename since modifying original data.
+```{r addcolumns}
+lobsters_detailed <- 
+  lobsters %>% 
+  mutate(size_m = size_mm / 1000,
+         millenia = 2000,
+         observer = "Allison Horst")
+```
+
+## We can select which lets us move, choose, retain columns into a smaller subset of orginal.
+```{r movecolumns}
+lobsters_cut <-
+  lobsters_detailed %>%
+     select(date, site, size_m)
+```
+

@@ -831,6 +831,20 @@ size_mm
 <h2>Saving and exporting the most recently run ggplot graph with added dimensions</h2>
 <pre class="r"><code>ggsave(here(&quot;figures&quot;, &quot;medlobsite_graph.png&quot;), dpi = 180, width = 5, height = 4)</code></pre>
 </div>
+<div id="we-can-mutate-or-add-columns-with-calculations-or-repeated-numbers-or-character-strings.-good-to-rename-since-modifying-original-data." class="section level2">
+<h2>We can mutate or add columns with calculations or repeated numbers or character strings. Good to rename since modifying original data.</h2>
+<pre class="r"><code>lobsters_detailed &lt;- 
+  lobsters %&gt;% 
+  mutate(size_m = size_mm / 1000,
+         millenia = 2000,
+         observer = &quot;Allison Horst&quot;)</code></pre>
+</div>
+<div id="we-can-select-which-lets-us-move-choose-retain-columns-into-a-smaller-subset-of-orginal." class="section level2">
+<h2>We can select which lets us move, choose, retain columns into a smaller subset of orginal.</h2>
+<pre class="r"><code>lobsters_cut &lt;-
+  lobsters_detailed %&gt;%
+     select(date, site, size_m)</code></pre>
+</div>
 
 
 
