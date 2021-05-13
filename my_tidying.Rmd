@@ -11,5 +11,34 @@ library(tidyverse)
 library(here)
 library(janitor)
 library(readxl)
+library(skimr)
+```
+
+## Read in new data for cleaning and explore
+```{r dataread}
+inverts <- read_excel(here("data", "inverts.xlsx")
+          )
+skimr::skim(inverts)
+```
+
+## We’ll use tidyr::pivot_longer() to gather data from all years in inverts (columns 2016, 2017, and 2018) into two columns, switching from wide format to long format
+```{r switchwide-long}
+inverts_long <- pivot_longer(data = inverts,
+                             cols = '2016':'2018',
+                             names_to = "year",
+                             values_to = "sp_count")
+```
+
+## But using class(), we can see that the years are still character strings and not numbers. We need to coerce that column by mutating it.
+```{r coercing}
+inverts_long <- inverts_long %>%
+  mutate(year = as.numeric(year))
+```
+
+## If we wanted to split the common name column up into individual species columns, we can use pivot_wider to spread
+```{r switchlong-wide}
+inverts_wide <- inverts_long %>% 
+  pivot_wider(names_from = common_name, 
+                     values_from = sp_count)
 ```
 

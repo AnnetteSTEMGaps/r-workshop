@@ -358,6 +358,177 @@ pre code {
 <div id="attach-packages" class="section level2">
 <h2>Attach packages</h2>
 </div>
+<div id="read-in-new-data-for-cleaning-and-explore" class="section level2">
+<h2>Read in new data for cleaning and explore</h2>
+<pre class="r"><code>inverts &lt;- read_excel(here(&quot;data&quot;, &quot;inverts.xlsx&quot;)
+          )
+skimr::skim(inverts)</code></pre>
+<table>
+<caption>Data summary</caption>
+<tbody>
+<tr class="odd">
+<td align="left">Name</td>
+<td align="left">inverts</td>
+</tr>
+<tr class="even">
+<td align="left">Number of rows</td>
+<td align="left">55</td>
+</tr>
+<tr class="odd">
+<td align="left">Number of columns</td>
+<td align="left">6</td>
+</tr>
+<tr class="even">
+<td align="left">_______________________</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">Column type frequency:</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">character</td>
+<td align="left">3</td>
+</tr>
+<tr class="odd">
+<td align="left">numeric</td>
+<td align="left">3</td>
+</tr>
+<tr class="even">
+<td align="left">________________________</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">Group variables</td>
+<td align="left">None</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: character</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">skim_variable</th>
+<th align="right">n_missing</th>
+<th align="right">complete_rate</th>
+<th align="right">min</th>
+<th align="right">max</th>
+<th align="right">empty</th>
+<th align="right">n_unique</th>
+<th align="right">whitespace</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">month</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">site</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">4</td>
+<td align="right">4</td>
+<td align="right">0</td>
+<td align="right">11</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">common_name</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">12</td>
+<td align="right">24</td>
+<td align="right">0</td>
+<td align="right">5</td>
+<td align="right">0</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: numeric</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">skim_variable</th>
+<th align="right">n_missing</th>
+<th align="right">complete_rate</th>
+<th align="right">mean</th>
+<th align="right">sd</th>
+<th align="right">p0</th>
+<th align="right">p25</th>
+<th align="right">p50</th>
+<th align="right">p75</th>
+<th align="right">p100</th>
+<th align="left">hist</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">2016</td>
+<td align="right">0</td>
+<td align="right">1.00</td>
+<td align="right">697.80</td>
+<td align="right">1219.78</td>
+<td align="right">16</td>
+<td align="right">24</td>
+<td align="right">255.0</td>
+<td align="right">815.00</td>
+<td align="right">6384</td>
+<td align="left">▇▁▁▁▁</td>
+</tr>
+<tr class="even">
+<td align="left">2017</td>
+<td align="right">0</td>
+<td align="right">1.00</td>
+<td align="right">658.05</td>
+<td align="right">997.18</td>
+<td align="right">16</td>
+<td align="right">24</td>
+<td align="right">73.0</td>
+<td align="right">1010.50</td>
+<td align="right">4398</td>
+<td align="left">▇▂▁▁▁</td>
+</tr>
+<tr class="odd">
+<td align="left">2018</td>
+<td align="right">5</td>
+<td align="right">0.91</td>
+<td align="right">981.26</td>
+<td align="right">1415.62</td>
+<td align="right">16</td>
+<td align="right">24</td>
+<td align="right">242.5</td>
+<td align="right">1389.75</td>
+<td align="right">4955</td>
+<td align="left">▇▁▁▁▁</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="well-use-tidyrpivot_longer-to-gather-data-from-all-years-in-inverts-columns-2016-2017-and-2018-into-two-columns-switching-from-wide-format-to-long-format" class="section level2">
+<h2>We’ll use tidyr::pivot_longer() to gather data from all years in inverts (columns 2016, 2017, and 2018) into two columns, switching from wide format to long format</h2>
+<pre class="r"><code>inverts_long &lt;- pivot_longer(data = inverts,
+                             cols = &#39;2016&#39;:&#39;2018&#39;,
+                             names_to = &quot;year&quot;,
+                             values_to = &quot;sp_count&quot;)</code></pre>
+</div>
+<div id="but-using-class-we-can-see-that-the-years-are-still-character-strings-and-not-numbers.-we-need-to-coerce-that-column-by-mutating-it." class="section level2">
+<h2>But using class(), we can see that the years are still character strings and not numbers. We need to coerce that column by mutating it.</h2>
+<pre class="r"><code>inverts_long &lt;- inverts_long %&gt;%
+  mutate(year = as.numeric(year))</code></pre>
+</div>
+<div id="if-we-wanted-to-split-the-common-name-column-up-into-individual-species-columns-we-can-use-pivot_wider-to-spread" class="section level2">
+<h2>If we wanted to split the common name column up into individual species columns, we can use pivot_wider to spread</h2>
+<pre class="r"><code>inverts_wide &lt;- inverts_long %&gt;% 
+  pivot_wider(names_from = common_name, 
+                     values_from = sp_count)</code></pre>
+</div>
 
 
 
