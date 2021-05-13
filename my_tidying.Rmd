@@ -1,0 +1,15 @@
+---
+title: "my.tidying.Rmd"
+author: "Annette Brickley"
+date: "5/13/2021"
+output: html_document
+---
+
+## Attach packages
+```{r setup, include=FALSE}
+library(tidyverse)
+library(here)
+library(janitor)
+library(readxl)
+```
+
