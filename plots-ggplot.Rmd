@@ -107,3 +107,4 @@ gg_np +
 ```{r savinglastplot}
 ggsave(here("figures", "np_graph.jpg"), dpi = 180, width = 5, height = 4)
 ```
+

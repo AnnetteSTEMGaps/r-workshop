@@ -16,7 +16,7 @@ library(kableExtra) # install.packages('kableExtra')
 ## read in data from Excel (knowing it's an xlsx file) and removing top 4 lines of metadata
 
 ```{r dataread}
-lobsters <- read_xlsx(here("data/lobsters.xlsx"),
+lobsters <- read_xlsx(here("data/lobsters2.xlsx"),
             skip=4)
 ```
 
@@ -77,3 +77,4 @@ ggplot(data = siteyear_summary,
 ```{r savinglastplot}
 ggsave(here("figures", "medlobsite_graph.png"), dpi = 180, width = 5, height = 4)
 ```
+
