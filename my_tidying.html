@@ -529,6 +529,33 @@ skimr::skim(inverts)</code></pre>
   pivot_wider(names_from = common_name, 
                      values_from = sp_count)</code></pre>
 </div>
+<div id="to-clean-up-column-names-to-the-default-lower_snake_case-using-janitor" class="section level2">
+<h2>To clean up column names to the default lower_snake_case using janitor</h2>
+<pre class="r"><code>inverts_wide &lt;- inverts_wide %&gt;%
+  clean_names()</code></pre>
+</div>
+<div id="to-merge-two-or-more-columns-use-tidyrunite" class="section level2">
+<h2>To merge two or more columns, use tidyr::unite</h2>
+<pre class="r"><code>inverts_unite &lt;- inverts_long %&gt;%
+  unite(col = &quot;site_year&quot;, # what to name the new united column
+        c(site, year), # the columns being united
+        sep = &quot;_&quot;) # how to separate the things we&#39;re uniting</code></pre>
+</div>
+<div id="to-separate-two-or-more-columns-use-tidyrseparate" class="section level2">
+<h2>To separate two or more columns, use tidyr::separate</h2>
+<pre class="r"><code>inverts_sep &lt;- inverts_unite %&gt;%
+  separate(site_year, # name of col to separate
+          into = c(&quot;my_site&quot;, &quot;my_year&quot;)) # what to name new cols</code></pre>
+</div>
+<div id="to-find-and-replace-a-string-of-characters-with-something-else-use-stringrstr_replace" class="section level2">
+<h2>To find and replace a string of characters with something else, use stringr::str_replace</h2>
+<pre class="r"><code>ca_abbr &lt;- inverts %&gt;%
+  mutate(
+    common_name = 
+      str_replace(common_name,
+                  pattern = &quot;california&quot;,
+                  replacement = &quot;CA&quot;))</code></pre>
+</div>
 
 
 

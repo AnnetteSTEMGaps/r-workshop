@@ -42,3 +42,33 @@ inverts_wide <- inverts_long %>%
                      values_from = sp_count)
 ```
 
+## To clean up column names to the default lower_snake_case using janitor
+```{r columnnameclean}
+inverts_wide <- inverts_wide %>%
+  clean_names()
+```
+
+## To merge two or more columns, use tidyr::unite 
+```{r columncombine}
+inverts_unite <- inverts_long %>%
+  unite(col = "site_year", # what to name the new united column
+        c(site, year), # the columns being united
+        sep = "_") # how to separate the things we're uniting
+```
+
+## To separate two or more columns, use tidyr::separate
+```{r columnsep}
+inverts_sep <- inverts_unite %>%
+  separate(site_year, # name of col to separate
+          into = c("my_site", "my_year")) # what to name new cols
+```
+
+## To find and replace a string of characters with something else, use stringr::str_replace
+```{r findrepl}
+ca_abbr <- inverts %>%
+  mutate(
+    common_name = 
+      str_replace(common_name,
+                  pattern = "california",
+                  replacement = "CA"))
+```
