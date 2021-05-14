@@ -6,7 +6,7 @@ output: html_document
 ---
 
 ## Attach packages
-```{r setup, include=FALSE}
+```{r setup, include=TRUE}
 library(tidyverse)
 library(here)
 library(janitor)

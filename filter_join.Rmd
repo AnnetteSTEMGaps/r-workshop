@@ -1,0 +1,45 @@
+---
+title: "filter_join.Rmd"
+author: "Annette Brickley"
+date: "5/14/2021"
+output: html_document
+---
+
+```{r setup, include=TRUE}
+library(tidyverse)
+library(readxl)
+library(here) 
+library(kableExtra)
+```
+
+## Read in data
+```{r dataread}
+fish <- read_csv(here("data", "fish.csv"))
+kelp_abur <- read_excel(here("data", "kelp.xlsx"),
+                        sheet = "abur")
+```
+
+## Filter rows by matching a single char string, == means exactly equal
+```{r filter1}
+fish_garibaldi <- fish %>% 
+  filter(common_name == "garibaldi")
+fish_mohk <- fish %>% 
+  filter(site == "mohk")
+```
+
+## Filter rows based on numeric conditions
+```{r filter2}
+fish_over50 <- fish %>% 
+  filter(total_count >= 50)
+```
+
+## Filter for a subset of the data
+```{r filter3}
+fish_3sp <- fish %>% 
+  filter(common_name == "garibaldi" |  # | means OR
+           common_name == "blacksmith" |
+           common_name == "black surfperch")
+# can do the same thing with code below because they are all in common_name
+# filter(common_name %in% c("garibaldi", "blacksmith", "black surfperch"))
+```
+
