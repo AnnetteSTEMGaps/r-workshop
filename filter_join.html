@@ -417,6 +417,30 @@ fish_mohk &lt;- fish %&gt;%
            common_name == &quot;black surfperch&quot;)
 # can do the same thing with code below because they are all in common_name
 # filter(common_name %in% c(&quot;garibaldi&quot;, &quot;blacksmith&quot;, &quot;black surfperch&quot;))</code></pre>
+<div id="filter-for-a-subset-based-on-either-of-two-different-columns" class="section level3">
+<h3>Filter for a subset based on either of two different columns</h3>
+<pre class="r"><code>fish_gar_2016 &lt;- fish %&gt;% 
+  filter(year == 2016 | common_name == &quot;garibaldi&quot;)</code></pre>
+</div>
+</div>
+<div id="filter-to-for-a-subset-based-on-both-or-more-columns-using-a-or-for-and" class="section level2">
+<h2>Filter to for a subset based on both (or more) columns using a , or &amp; for AND</h2>
+<pre class="r"><code>aque_2018 &lt;- fish %&gt;% 
+  filter(year == 2018 &amp; site == &quot;aque&quot;)</code></pre>
+</div>
+<div id="combining-these-tactics" class="section level2">
+<h2>Combining these tactics</h2>
+<pre class="r"><code>low_gb_wr &lt;- fish %&gt;% 
+  filter(common_name == &quot;garibaldi&quot; |
+           common_name == &quot;rock wrasse&quot; &amp;
+           total_count &lt;= 10)</code></pre>
+</div>
+<div id="looking-for-specific-strings-can-use-str_detect-and-define-a-pattern" class="section level2">
+<h2>Looking for specific strings, can use str_detect and define a pattern</h2>
+<pre class="r"><code>fish_bl &lt;- fish %&gt;% 
+  filter(str_detect(common_name, pattern = &quot;black&quot;))
+fish_nogar &lt;- fish %&gt;% 
+  filter(str_detect(common_name, pattern = &quot;gari&quot;, negate = TRUE)) # excludes any with pattern</code></pre>
 </div>
 
 
