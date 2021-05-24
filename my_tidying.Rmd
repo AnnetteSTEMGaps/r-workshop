@@ -72,3 +72,12 @@ ca_abbr <- inverts %>%
                   pattern = "california",
                   replacement = "CA"))
 ```
+
+## Converting 2 digit year to 4 digit year, all 20xx (Annette's way)
+```{r year2-4}
+kelp_abur_4y <- kelp_abur %>%
+ select(year, site, total_fronds) %>%
+    mutate(year = year + 2000)
+```
+
+ 
