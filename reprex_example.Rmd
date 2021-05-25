@@ -6,12 +6,19 @@ output: html_document
 ---
 ## reprex is a “workflow package”. That means that it’s something we don’t put in Rmds, scripts, or anything else. We use is in the Console when we are preparing to ask for help — from ourselves or someone else.
 
-```{r setup, include=TRUE}
-library(tidyverse)
+```{r setup, warning=FALSE}
 library(reprex)
 ```
 ## If I had a question about this code, I select the code, copy it, then go into console and just type reprex() and magic happens, ready to paste anywhere, like as an issue, in an email, etc.
-```{r example}
+```{r example, warning=FALSE}
+library(tidyverse)
 ggplot(cars, aes(speed, dist)) +
   geom_point()
+```
+
+## Another example using built-in mtcars dataframe
+```{r example2, warning=FALSE}
+library(tidyverse)
+mtcars %>% 
+  filter(mpg > 26)
 ```
