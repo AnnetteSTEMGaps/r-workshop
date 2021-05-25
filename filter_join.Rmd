@@ -5,7 +5,7 @@ date: "5/14/2021"
 output: html_document
 ---
 
-```{r setup, include=TRUE}
+```{r setup, warning=FALSE}
 library(tidyverse)
 library(readxl)
 library(here) 
@@ -120,3 +120,4 @@ my_fish_join %>%
   kable_styling(bootstrap_options = "striped",
                 full_width = FALSE)
 ```
+
